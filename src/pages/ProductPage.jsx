@@ -1,17 +1,19 @@
 import axios from 'axios';
 import { useEffect,useState } from 'react';
-import '../assets/all.scss'
-
+import '../assets/all.scss';
+import Lottie from "lottie-react";
+import teaBearLoading from '../animations/tea-bear-loading.json';
 
 
 function ProductPage(){
     const [products,setProducts]=useState([]);
-
+    const [isLoading,setLoading]=useState(true);
     async function getProducts(){
         try{
             const res = await axios.get(`${import.meta.env.VITE_BASE_URL}/v2/api/${import.meta.env.VITE_API_PATH}/products`)
             console.log(res.data.products);
             setProducts(res.data.products);
+            setLoading(false);
         }
         catch(err){
             console.log('出錯囉');
@@ -26,7 +28,7 @@ function ProductPage(){
              <div className="container">
              <div className='row row-cols-4'>
                 {products.map(function(item){
-                return <div class="col py-3"><div className='card'  key={item.id}>
+                return <div className="col py-3" key={item.id}><div className='card'>
                         <img src={item.imageUrl} className="product-img" alt={item.title}></img>
                             <div className='card-body'>
                                 <h5 className="card-title">{item.title}</h5>
@@ -34,7 +36,9 @@ function ProductPage(){
                                 <p className='card-text'>{item.description}</p>
                             </div>
                         </div></div>})}
-             </div></div>         
+             </div></div>
+             {isLoading && (<><div className='d-flex justify-content-center align-items-center'
+            style={{backgroundColor:'rgba(205, 233, 202, 0.4)',position:'fixed',top:0,left:0,right:0,bottom:0}}><Lottie animationData={teaBearLoading} loop={true} style={{width:'18%',height:'18%'}} /></div></>)}
          </>)
 }
 
