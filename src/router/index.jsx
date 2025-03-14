@@ -3,6 +3,7 @@ import TopBar from '../layouts/TopBar';
 import HomePage from '../pages/HomePage';
 import CartPage from '../pages/CartPage';
 import ProductPage from '../pages/ProductPage';
+import About from '../pages/About';
 
 const index=createHashRouter([
     {
@@ -21,6 +22,10 @@ const index=createHashRouter([
                 path:'carts',
                 element: <CartPage></CartPage>
             },
+            {
+                path:'about',
+                element: <About></About>
+            }
         ]
     }
 ])

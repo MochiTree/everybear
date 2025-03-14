@@ -11,6 +11,10 @@ const paths=[
         path:'products',
         name:'產品列表'
     },
+    {
+        path:'about',
+        name:'關於熊滿屋'
+    }
 ] 
 
 
