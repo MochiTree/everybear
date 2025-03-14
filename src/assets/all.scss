@@ -1,1 +1,7 @@
 @import 'bootstrap/scss/bootstrap.scss';
+
+.product-img {
+    object-fit:cover;
+    height: 12vw;
+    width: 100%;
+}
