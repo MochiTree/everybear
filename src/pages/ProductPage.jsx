@@ -29,7 +29,7 @@ function ProductPage(){
             
         }
         catch(err){
-            console.log('出錯囉');
+            console.log(err);
         }
     }
     useEffect(function(){
@@ -107,7 +107,21 @@ function ProductPage(){
     //     console.log(selectRes);
     //     console.log('陣列長度',selectRes.length);
     // },[selectRes])
-      
+
+      //加入購物車
+      async function addCart(item){
+        try{
+            await axios.post(`${import.meta.env.VITE_BASE_URL}/v2/api/${import.meta.env.VITE_API_PATH}/cart`,{
+                data:{
+                  product_id:item.id,
+                  qty:Number(1),
+                }
+              });
+              alert("已加入購物車");
+        }catch(err){
+            console.log(err)
+        }
+      }
 
       
     return (<><div  className='d-flex justify-content-center m-5'><input id='searchBar' type='text' placeholder='搜尋' onChange={function(e){setSearch(e.target.value)}}></input>
@@ -129,6 +143,7 @@ function ProductPage(){
                         <h6 className="card-subtitle mb-2 text-muted">{selectItem.category}</h6>
                         <p className='card-text'>{selectItem.description}</p>
                         <button className='btn btn-sm btn-primary my-3'><Link to={`/products/${selectItem.id}`} style={{color:'white'}}>more</Link></button>
+                        <button className='btn btn-sm btn-success m-3' onClick={()=>addCart(selectItem)}>加入購物車</button>
                     </div>
                 </div></div>    
                 }))
@@ -140,6 +155,7 @@ function ProductPage(){
                                 <h6 className="card-subtitle mb-2 text-muted">{searchItem.category}</h6>
                                 <p className='card-text'>{searchItem.description}</p>
                                 <button className='btn btn-sm btn-primary my-3'><Link to={`/products/${searchItem.id}`} style={{color:'white'}}>more</Link></button>
+                                <button className='btn btn-sm btn-success m-3' onClick={()=>addCart(searchItem)}>加入購物車</button>
                             </div>
                         </div></div>}))
                         : (products.map(function(item){
@@ -150,6 +166,7 @@ function ProductPage(){
                                 <h6 className="card-subtitle mb-2 text-muted">{item.category}</h6>
                                 <p className='card-text'>{item.description}</p>
                                 <button className='btn btn-sm btn-primary my-3'><Link to={`/products/${item.id}`} style={{color:'white'}}>more</Link></button>
+                                <button className='btn btn-sm btn-success m-3' onClick={()=>addCart(item)}>加入購物車</button>
                             </div>
                         </div></div>}))) }
 
