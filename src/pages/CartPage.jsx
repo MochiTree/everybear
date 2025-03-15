@@ -16,6 +16,43 @@ function CartPage(){
         getCart();
     },[])
 
+    //更新購物車
+    async function updateCart(item,qty){
+        if(qty>0){
+        try{
+            await axios.put(`${import.meta.env.VITE_BASE_URL}/v2/api/${import.meta.env.VITE_API_PATH}/cart/${item.id}`,{
+                data:{
+                    product_id:item.product_id,
+                    qty:Number(qty)
+                }
+            });
+            getCart();
+        }catch(err){
+            alert(err);
+        }}else{
+        alert('數量不得小於1');}
+    }
+
+    //刪除購物車
+    async function deleteSingleItem(item){
+        try{
+            await axios.delete(`${import.meta.env.VITE_BASE_URL}/v2/api/${import.meta.env.VITE_API_PATH}/cart/${item.id}`);
+            getCart();
+        }catch(err){
+            alert(err);
+        }
+    }
+
+    //刪除購物車(所有)
+    async function deleteAllCart(){
+        try{
+            await axios.delete(`${import.meta.env.VITE_BASE_URL}/v2/api/${import.meta.env.VITE_API_PATH}/carts`);
+            getCart();
+        }catch(err){
+            alert(err);
+        }
+    }
+    
         return (<><div className='container py-5'><table className="table align-middle text-center table-primary table-striped">
         <thead className='text-center'>
         <tr>
@@ -32,7 +69,7 @@ function CartPage(){
                 return (           
         <tr key={item.id}>
         <td>
-        <button type="button" className="btn btn-outline-danger btn-sm">
+        <button type="button" className="btn btn-outline-danger btn-sm" onClick={()=>deleteSingleItem(item)}>
             x
         </button>
         </td>
@@ -44,7 +81,7 @@ function CartPage(){
             <button
                 type="button"
                 className="btn btn-outline-dark btn-sm"
-               
+                onClick={()=>updateCart(item,item.qty-1)}
             >
                 -
             </button>
@@ -55,14 +92,12 @@ function CartPage(){
             <button
                 type="button"
                 className="btn btn-outline-dark btn-sm"
-                
+                onClick={()=>updateCart(item,item.qty+1)}
             >
                 +
             </button>
             </div>
-            {/* <span className="input-group-text bg-transparent border-0">
-            {item.product.unit}
-            </span> */}
+
         </div>
         </td>
         <td>{item.total}</td>
@@ -77,7 +112,7 @@ function CartPage(){
             <td style={{ width: "130px" }}>{cart.total}</td>
         </tr>
         <tr>
-            <td colSpan="6"><button className='btn btn-danger'  disabled={cart.carts?.length==0}>清空購物車</button></td>
+            <td colSpan="6"><button className='btn btn-danger' onClick={deleteAllCart} disabled={cart.carts?.length==0}>清空購物車</button></td>
         </tr>
         </tfoot>
     </table></div></>)
