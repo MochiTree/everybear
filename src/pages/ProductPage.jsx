@@ -6,6 +6,7 @@ import teaBearLoading from '../animations/tea-bear-loading.json';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
 import Select from "react-select";
+import Pagination from '../components/Pagination';
 
 
 function ProductPage(){
@@ -16,12 +17,13 @@ function ProductPage(){
     const [unSearch,setUnSearch]=useState(false);
     const [options,setOptions]=useState([{value:'all',label:'全部'}]);//取得產品資料後，產生分類選項用
     const [selectRes,setSelectRes]=useState([]);//將分類結果放入selectRes陣列
-    async function getProducts(){
+    const [pageStatus, setPageStatus] = useState({});//分頁設定
+    async function getProducts(page=1){
         try{
-            const res = await axios.get(`${import.meta.env.VITE_BASE_URL}/v2/api/${import.meta.env.VITE_API_PATH}/products`)
+            const res = await axios.get(`${import.meta.env.VITE_BASE_URL}/v2/api/${import.meta.env.VITE_API_PATH}/products?page=${page}`);
             console.log(res.data.products);
             setProducts(res.data.products);
-
+            setPageStatus(res.data.pagination);
             setLoading(false);
             
         }
@@ -33,6 +35,12 @@ function ProductPage(){
         getProducts();
     },[])
 
+     //預設瀏覽頁面為第一頁(page=1)
+    function changePage(nowPage){
+        getProducts(nowPage);
+    }
+ 
+
     useEffect(function(){//當產品列表更新時，分類也隨時更新
         products.map(function(item){
             setOptions(options=>[...options,{value:item.category,label:item.category}]);
@@ -41,7 +49,7 @@ function ProductPage(){
     
     //搜尋是從產品列表的title去搜尋,將搜尋結果放入新陣列(每次有搜尋就更新),來取代原先的產品列表顯示
     function searchProduct(){
-        console.log(search);
+        // console.log(search);
         setSelectRes([]);//將分類還原為全部(all)
 
         //外層再用map會產生重複結果(巢狀),故僅用fliter
@@ -57,7 +65,7 @@ function ProductPage(){
         //     })
         // })
             const searchResult = products.filter(function(item){
-                if(item.title.match(search.trim())!=null){//如果搜尋得到 就會丟進去searchResult陣列(tirm為刪除空格用，避免不必要的搜尋錯誤)
+                if(item.title.match(search.trim())!=null){//如果搜尋得到 就會丟進去searchResult陣列(trim為刪除空格用，避免不必要的搜尋錯誤)
                                     // console.log(item);
                                     setUnSearch(false);
                                     return item
@@ -68,7 +76,7 @@ function ProductPage(){
         if(searchResult.length===0){//如果搜尋不到 額外顯示搜尋錯誤提示
             setUnSearch(true);
         }
-        console.log(unSearch);
+        // console.log(unSearch);
         // console.log("結果是",searchRes)console放這裡會有生命週期問題
     }
     // useEffect(function(){
@@ -78,7 +86,7 @@ function ProductPage(){
 
     function selectProduct(opt){
         let selectResult;
-        document.getElementById('searchBar').value='';//75~77 分類時將搜尋內部文字(input)與useState清空
+        document.getElementById('searchBar').value='';//81~83 分類時將搜尋內部文字(input)與useState清空
         setSearch('');
         setSearchRes([]);
         setUnSearch(false);
@@ -92,12 +100,12 @@ function ProductPage(){
                              }
         })}
         setSelectRes(selectResult);
-        console.log(opt)
+        // console.log(opt)
     }
-    useEffect(function(){
-        console.log(selectRes);
-        console.log('陣列長度',selectRes.length);
-    },[selectRes])
+    // useEffect(function(){
+    //     console.log(selectRes);
+    //     console.log('陣列長度',selectRes.length);
+    // },[selectRes])
       
 
       
@@ -139,7 +147,9 @@ function ProductPage(){
                         </div></div>}))) }
 
 
-             </div></div>
+             </div>
+             <Pagination pageStatus={pageStatus} changePage={changePage}></Pagination>
+             </div>
              {isLoading && (<><div className='d-flex justify-content-center align-items-center'
             style={{backgroundColor:'rgba(205, 233, 202, 0.4)',position:'fixed',top:0,left:0,right:0,bottom:0}}><Lottie animationData={teaBearLoading} loop={true} style={{width:'18%',height:'18%'}} /></div></>)}
          </>)
