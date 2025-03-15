@@ -13,6 +13,7 @@ function ProductPage(){
     const [isLoading,setLoading]=useState(true);
     const [search,setSearch]=useState('');//搜尋用
     const [searchRes,setSearchRes]=useState([]);//將搜尋結果放入searchRes陣列中
+    const [unSearch,setUnSearch]=useState(false);
     const [options,setOptions]=useState([{value:'all',label:'全部'}]);//取得產品資料後，產生分類選項用
     const [selectRes,setSelectRes]=useState([]);//將分類結果放入selectRes陣列
     async function getProducts(){
@@ -58,11 +59,16 @@ function ProductPage(){
             const searchResult = products.filter(function(item){
                 if(item.title.match(search)!=null){//如果搜尋得到 就會丟進去searchResult陣列
                                     // console.log(item);
+                                    setUnSearch(false);
                                     return item
                                  }
             })
         // setSearchRes([...searchRes,searchResult]);//不需要push
         setSearchRes(searchResult);
+        if(searchResult.length===0){//如果搜尋不到 額外顯示搜尋錯誤提示
+            setUnSearch(true);
+        }
+        console.log(unSearch);
         // console.log("結果是",searchRes)console放這裡會有生命週期問題
     }
     // useEffect(function(){
@@ -75,6 +81,7 @@ function ProductPage(){
         document.getElementById('searchBar').value='';//75~77 分類時將搜尋內部文字(input)與useState清空
         setSearch('');
         setSearchRes([]);
+        setUnSearch(false);
 
             if(opt.value==='all'){//如果選擇 全部(all) 就把類別篩選的陣列清空
                 selectResult=[];
@@ -94,11 +101,12 @@ function ProductPage(){
       
 
       
-    return (<><h1>產品列表</h1><div  className='d-flex justify-content-center'><input id='searchBar' type='text' placeholder='搜尋' onChange={function(e){setSearch(e.target.value)}}></input>
+    return (<><h1>產品列表</h1><div  className='d-flex justify-content-center m-5'><input id='searchBar' type='text' placeholder='搜尋' onChange={function(e){setSearch(e.target.value)}}></input>
             <div className='d-flex align-items-center px-2'><button className='btn btn-sm btn-primary' onClick={searchProduct}><FontAwesomeIcon icon={faMagnifyingGlass} /></button></div>
             <Select options={options} placeholder='透過類別搜尋' onChange={function(opt){selectProduct(opt)}}/></div>
              {/* <div style={{display:'flex'}}> */}
              <div className="container">
+             {unSearch && <div className='d-flex justify-content-center py-3 mb-3 bg-success'>搜尋不到相關商品</div>}
              <div className='row row-cols-4'>
                 {/* 當有搜尋/分類結果資料時，顯示搜尋/分類結果*/}
                 {selectRes.length>0 ? (selectRes.map(function(selectItem){
