@@ -49,9 +49,17 @@ function ProductPage(){
  
 
     useEffect(function(){//當產品列表更新時，分類也隨時更新
-        products.map(function(item){
-            setOptions(options=>[...options,{value:item.category,label:item.category}]);
+        setOptions([{value:'all',label:'全部'}]);
+        const category= products.map(function(item){//先分別把分類名稱拉出來成為一陣列
+            return item.category;
         })
+        let categoryFilter = category.filter(function(item,index){
+            return category.indexOf(item)===index;//用indexOf過濾掉重複的分類，再加入至options
+        })
+        categoryFilter.map(function(item){
+            return  setOptions(options=>[...options,{value:item,label:item}]);
+        })
+
     },[products])
     
     //搜尋是從產品列表的title去搜尋,將搜尋結果放入新陣列(每次有搜尋就更新),來取代原先的產品列表顯示
