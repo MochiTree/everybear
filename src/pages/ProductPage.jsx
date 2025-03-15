@@ -7,6 +7,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
 import Select from "react-select";
 import Pagination from '../components/Pagination';
+import { Link, Outlet } from "react-router-dom"
 
 
 function ProductPage(){
@@ -109,40 +110,46 @@ function ProductPage(){
       
 
       
-    return (<><h1>產品列表</h1><div  className='d-flex justify-content-center m-5'><input id='searchBar' type='text' placeholder='搜尋' onChange={function(e){setSearch(e.target.value)}}></input>
+    return (<><div  className='d-flex justify-content-center m-5'><input id='searchBar' type='text' placeholder='搜尋' onChange={function(e){setSearch(e.target.value)}}></input>
             <div className='d-flex align-items-center px-2'><button className='btn btn-sm btn-primary' onClick={searchProduct}><FontAwesomeIcon icon={faMagnifyingGlass} /></button></div>
             <Select options={options} placeholder='透過類別搜尋' onChange={function(opt){selectProduct(opt)}}/></div>
              {/* <div style={{display:'flex'}}> */}
              <div className="container">
+             <Outlet></Outlet>
+
+             <h1 className='py-5 text-center'>產品列表</h1>
              {unSearch && <div className='d-flex justify-content-center py-3 mb-3 bg-success'>搜尋不到相關商品</div>}
              <div className='row row-cols-4'>
                 {/* 當有搜尋/分類結果資料時，顯示搜尋/分類結果*/}
                 {selectRes.length>0 ? (selectRes.map(function(selectItem){
                 return <div className="col py-3" key={selectItem.id}><div className='card'>
                 <img src={selectItem.imageUrl} className="product-img" alt={selectItem.title}></img>
-                    <div className='card-body'>
+                    <div className='card-body position-relative'>
                         <h5 className="card-title">{selectItem.title}</h5>
                         <h6 className="card-subtitle mb-2 text-muted">{selectItem.category}</h6>
                         <p className='card-text'>{selectItem.description}</p>
+                        <button className='btn btn-sm btn-primary my-3'><Link to={`/products/${selectItem.id}`} style={{color:'white'}}>more</Link></button>
                     </div>
                 </div></div>    
                 }))
                 :(searchRes.length>0 ? (searchRes.map(function(searchItem){
                 return <div className="col py-3" key={searchItem.id}><div className='card'>
                         <img src={searchItem.imageUrl} className="product-img" alt={searchItem.title}></img>
-                            <div className='card-body'>
+                            <div className='card-body position-relative'>
                                 <h5 className="card-title">{searchItem.title}</h5>
                                 <h6 className="card-subtitle mb-2 text-muted">{searchItem.category}</h6>
                                 <p className='card-text'>{searchItem.description}</p>
+                                <button className='btn btn-sm btn-primary my-3'><Link to={`/products/${searchItem.id}`} style={{color:'white'}}>more</Link></button>
                             </div>
                         </div></div>}))
                         : (products.map(function(item){
                 return <div className="col py-3" key={item.id}><div className='card'>
                         <img src={item.imageUrl} className="product-img" alt={item.title}></img>
-                            <div className='card-body'>
+                            <div className='card-body position-relative'>
                                 <h5 className="card-title">{item.title}</h5>
                                 <h6 className="card-subtitle mb-2 text-muted">{item.category}</h6>
                                 <p className='card-text'>{item.description}</p>
+                                <button className='btn btn-sm btn-primary my-3'><Link to={`/products/${item.id}`} style={{color:'white'}}>more</Link></button>
                             </div>
                         </div></div>}))) }
 

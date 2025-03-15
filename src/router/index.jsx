@@ -4,6 +4,7 @@ import HomePage from '../pages/HomePage';
 import CartPage from '../pages/CartPage';
 import ProductPage from '../pages/ProductPage';
 import About from '../pages/About';
+import ProductDetail from '../pages/ProductDetail';
 
 const index=createHashRouter([
     {
@@ -16,7 +17,13 @@ const index=createHashRouter([
             },
             {
                 path:'products',
-                element: <ProductPage></ProductPage>
+                element: <ProductPage></ProductPage>,
+                children:[
+                    {
+                        path:':productId',
+                        element:<ProductDetail></ProductDetail>
+                    }
+                ]
             },
             {
                 path:'carts',
