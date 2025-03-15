@@ -49,12 +49,11 @@ function ProductPage(){
                                  }
             })
         // setSearchRes([...searchRes,searchResult]);//不需要push
-        setSearchRes([searchResult]);
+        setSearchRes(searchResult);
         // console.log("結果是",searchRes)console放這裡會有生命週期問題
     }
     useEffect(function(){
-        console.log("目前結果是",searchRes)
-
+        console.log(searchRes);
     },[searchRes])
 
 
@@ -64,8 +63,16 @@ function ProductPage(){
              <div className="container">
              <div className='row row-cols-4'>
                 {/* 當有搜尋結果資料時，顯示搜尋結果 */}
-                {/* {searchRes ? searchRes.map} */}
-                {products.map(function(item){
+                {searchRes ? (searchRes.map(function(searchItem){
+                return <div className="col py-3" key={searchItem.id}><div className='card'>
+                        <img src={searchItem.imageUrl} className="product-img" alt={searchItem.title}></img>
+                            <div className='card-body'>
+                                <h5 className="card-title">{searchItem.title}</h5>
+                                <h6 className="card-subtitle mb-2 text-muted">{searchItem.category}</h6>
+                                <p className='card-text'>{searchItem.description}</p>
+                            </div>
+                        </div></div>}))
+                        : (products.map(function(item){
                 return <div className="col py-3" key={item.id}><div className='card'>
                         <img src={item.imageUrl} className="product-img" alt={item.title}></img>
                             <div className='card-body'>
@@ -73,17 +80,9 @@ function ProductPage(){
                                 <h6 className="card-subtitle mb-2 text-muted">{item.category}</h6>
                                 <p className='card-text'>{item.description}</p>
                             </div>
-                        </div></div>})}
-                 {/* {searchRes.map(function(item){
-                    console.log(item)
-                return <div className="col py-3" key={item.id}><div className='card'>
-                        <img src={item.imageUrl} className="product-img" alt={item.title}></img>
-                            <div className='card-body'>
-                                <h5 className="card-title">{item.title}</h5>
-                                <h6 className="card-subtitle mb-2 text-muted">{item.category}</h6>
-                                <p className='card-text'>{item.description}</p>
-                            </div>
-                        </div></div>})}         */}
+                        </div></div>})) }
+
+
              </div></div>
              {isLoading && (<><div className='d-flex justify-content-center align-items-center'
             style={{backgroundColor:'rgba(205, 233, 202, 0.4)',position:'fixed',top:0,left:0,right:0,bottom:0}}><Lottie animationData={teaBearLoading} loop={true} style={{width:'18%',height:'18%'}} /></div></>)}
