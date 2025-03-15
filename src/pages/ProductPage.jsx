@@ -57,7 +57,7 @@ function ProductPage(){
         //     })
         // })
             const searchResult = products.filter(function(item){
-                if(item.title.match(search)!=null){//如果搜尋得到 就會丟進去searchResult陣列
+                if(item.title.match(search.trim())!=null){//如果搜尋得到 就會丟進去searchResult陣列(tirm為刪除空格用，避免不必要的搜尋錯誤)
                                     // console.log(item);
                                     setUnSearch(false);
                                     return item
