@@ -3,11 +3,14 @@ import { useEffect,useState } from 'react';
 import '../assets/all.scss';
 import Lottie from "lottie-react";
 import teaBearLoading from '../animations/tea-bear-loading.json';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons'
 
 
 function ProductPage(){
     const [products,setProducts]=useState([]);
     const [isLoading,setLoading]=useState(true);
+    const [search,setSearch]=useState('');
     async function getProducts(){
         try{
             const res = await axios.get(`${import.meta.env.VITE_BASE_URL}/v2/api/${import.meta.env.VITE_API_PATH}/products`)
@@ -22,8 +25,13 @@ function ProductPage(){
     useEffect(function(){
         getProducts();
     },[])
+    
+    function searchProduct(){
+        console.log(search);
+    }
 
-    return (<><h1>產品列表</h1>
+    return (<><h1>產品列表</h1><div  className='d-flex justify-content-center'><input type='text' placeholder='搜尋' onChange={function(e){setSearch(e.target.value)}}></input>
+            <div className='d-flex align-items-center px-2'><button className='btn btn-sm btn-primary' onClick={searchProduct}><FontAwesomeIcon icon={faMagnifyingGlass} /></button></div></div>
              {/* <div style={{display:'flex'}}> */}
              <div className="container">
              <div className='row row-cols-4'>
