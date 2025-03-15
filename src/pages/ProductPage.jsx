@@ -39,6 +39,12 @@ function ProductPage(){
      //預設瀏覽頁面為第一頁(page=1)
     function changePage(nowPage){
         getProducts(nowPage);
+
+        document.getElementById('searchBar').value='';//分頁時將搜尋內部文字(input)與useState清空
+        setSearch('');
+        setSearchRes([]);
+
+        setSelectRes([]);//將分類還原為全部(all)
     }
  
 
@@ -87,7 +93,7 @@ function ProductPage(){
 
     function selectProduct(opt){
         let selectResult;
-        document.getElementById('searchBar').value='';//81~83 分類時將搜尋內部文字(input)與useState清空
+        document.getElementById('searchBar').value='';//94~96 分類時將搜尋內部文字(input)與useState清空
         setSearch('');
         setSearchRes([]);
         setUnSearch(false);
