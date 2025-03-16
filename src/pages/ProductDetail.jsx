@@ -26,6 +26,7 @@ function ProductDetail(){
     useEffect(function(){
         getProductDetail();
         setLoading(true);
+        window.scroll({top: 0, left: 0, behavior: 'smooth' })
     },[params])
 
     function changeImg(src){
