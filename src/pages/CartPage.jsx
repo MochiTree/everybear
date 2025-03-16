@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { useEffect,useState } from 'react';
+import { Link } from 'react-router-dom';
 
 function CartPage(){
     const [cart,setCart]=useState({});
@@ -112,7 +113,8 @@ function CartPage(){
             <td style={{ width: "130px" }}>{cart.total}</td>
         </tr>
         <tr>
-            <td colSpan="6"><button className='btn btn-danger' onClick={deleteAllCart} disabled={cart.carts?.length==0}>清空購物車</button></td>
+            <td colSpan="1"><button className='btn btn-danger' onClick={deleteAllCart} disabled={cart.carts?.length==0}>清空購物車</button></td>
+            <td colSpan="5" className='text-end'><Link to={'/checkout'} style={{color:'green'}}>前往結帳</Link></td>
         </tr>
         </tfoot>
     </table></div></>)

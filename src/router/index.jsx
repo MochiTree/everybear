@@ -5,6 +5,7 @@ import CartPage from '../pages/CartPage';
 import ProductPage from '../pages/ProductPage';
 import About from '../pages/About';
 import ProductDetail from '../pages/ProductDetail';
+import CheckOut from '../pages/CheckOut';
 
 const index=createHashRouter([
     {
@@ -28,6 +29,10 @@ const index=createHashRouter([
             {
                 path:'carts',
                 element: <CartPage></CartPage>
+            },
+            {
+                path:'checkout',
+                element: <CheckOut></CheckOut>
             },
             {
                 path:'about',
