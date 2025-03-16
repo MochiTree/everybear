@@ -6,6 +6,10 @@ import ProductPage from '../pages/ProductPage';
 import About from '../pages/About';
 import ProductDetail from '../pages/ProductDetail';
 import CheckOut from '../pages/CheckOut';
+import LoginPage from '../pages/admin/LoginPage';
+import AdminProductPage from '../pages/admin/AdminProductPage';
+import OrderPage from '../pages/admin/OrderPage';
+import AdminBar from '../pages/admin/layouts/AdminBar';
 
 const index=createHashRouter([
     {
@@ -37,9 +41,27 @@ const index=createHashRouter([
             {
                 path:'about',
                 element: <About></About>
+            },
+        ]
+    },
+    {
+        path:'admin',
+        element:<AdminBar></AdminBar>,
+        children:[
+            {
+                path:'login',
+                element:<LoginPage></LoginPage>
+            },
+            {
+                path:'products',
+                element:<AdminProductPage></AdminProductPage>,
+            },
+            {
+                path:'orders',
+                element:<OrderPage></OrderPage>
             }
         ]
-    }
+    },
 ])
 
 export default index;
