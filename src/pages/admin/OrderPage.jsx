@@ -4,6 +4,7 @@ import OrderModal from '../admin/components/OrderModal';
 import DelOrderModal from '../admin/components/DelOrderModal';
 import Lottie from "lottie-react";
 import teaBearLoading from '../../animations/tea-bear-loading.json';
+import {useNavigate} from 'react-router-dom';
 function OrderPage(){
     const [orders,setOrders]=useState([]);
     const [isOpen,setIsOpen]=useState(false);
@@ -17,13 +18,35 @@ function OrderPage(){
             setOrders(res.data.orders)
             setLoading(false)
         }catch(err){
-            console.log(err);
+            alert(err);
             setLoading(false);
+            navigate("/admin/login");
         }
     }
     useEffect(function(){
-        getOrder();
+          //取得目前的token
+          const token = document.cookie.replace(
+            /(?:(?:^|.*;\s*)loginToken\s*=\s*([^;]*).*$)|^.*$/,
+            "$1"
+        );
+        axios.defaults.headers.common.Authorization = `${token}`;
+        checkAdmin();
     },[])
+
+    const navigate= useNavigate();
+
+    //登入驗證 不成功就回到登入頁面
+    async function checkAdmin() {
+        try {
+          await axios.post(`${import.meta.env.VITE_BASE_URL}/api/user/check`);
+          getOrder();
+        } catch (err) {
+          navigate("/admin/login");
+          setLoading(false);
+          alert(err.response.data.message);
+        }
+      };
+
 
     const [orderContent, setContent]=useState({});//後台頁面:編輯/新增用
 

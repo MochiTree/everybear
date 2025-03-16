@@ -5,6 +5,7 @@ import ProductModal from '../admin/components/ProductModal';
 import DelProductModal from '../admin/components/DelProductModal';
 import Lottie from "lottie-react";
 import teaBearLoading from '../../animations/tea-bear-loading.json';
+import {useNavigate} from 'react-router-dom';
 
 function AdminProductPage(){
       const [products, setProducts] = useState([]);
@@ -14,6 +15,20 @@ function AdminProductPage(){
       const [pageStatus, setPageStatus] = useState({});
       const [isLoading,setLoading]=useState(true);
 
+          
+    const navigate= useNavigate();
+
+      //登入驗證 不成功就回到登入頁面
+      async function checkAdmin() {
+          try {
+            await axios.post(`${import.meta.env.VITE_BASE_URL}/api/user/check`);
+            getProducts();
+          } catch (err) {
+            navigate("/admin/login");
+            setLoading(false);
+            alert(err.response.data.message);
+          }
+        };
 
       const defaultModalState = {
         imageUrl: "",
@@ -60,12 +75,19 @@ function AdminProductPage(){
                 setLoading(false)
                 } catch (err) {
                 alert(err.message);
+                navigate("/admin/login");
                 }
             };
 
               //初始化時將資料傳入
                 useEffect(()=>{
-                    getProducts()
+                    //取得目前的token
+                    const token = document.cookie.replace(
+                        /(?:(?:^|.*;\s*)loginToken\s*=\s*([^;]*).*$)|^.*$/,
+                        "$1"
+                    );
+                    axios.defaults.headers.common.Authorization = `${token}`;
+                    checkAdmin();
                 },[]);
 
             //預設瀏覽頁面為第一頁(page=1)

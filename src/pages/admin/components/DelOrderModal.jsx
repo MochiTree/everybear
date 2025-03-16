@@ -59,7 +59,7 @@ function DelOrderModal(props) {
                     </div>
                     <div className="modal-body">
                       你是否要刪除 
-                      <span className="text-danger fw-bold">{props.orderContent.title}</span>
+                      <span className="text-danger fw-bold">{props.orderContent?.user?.name}</span>的訂單
                     </div>
                     <div className="modal-footer">
                       <button
