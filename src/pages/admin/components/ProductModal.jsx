@@ -4,7 +4,6 @@ import {Modal} from 'bootstrap';
 
 function ProductModal(props) {
       const modalRef =useRef(null);
-        
         useEffect(()=>{
             new Modal(modalRef.current);
            //從cookie抓出token，讓每次使用axios的時候把token放入header傳送
