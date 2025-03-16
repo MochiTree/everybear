@@ -82,11 +82,11 @@ function AdminProductPage(){
               //初始化時將資料傳入
                 useEffect(()=>{
                     //取得目前的token
-                    const token = document.cookie.replace(
-                        /(?:(?:^|.*;\s*)loginToken\s*=\s*([^;]*).*$)|^.*$/,
-                        "$1"
-                    );
-                    axios.defaults.headers.common.Authorization = `${token}`;
+                    // const token = document.cookie.replace(
+                    //     /(?:(?:^|.*;\s*)loginToken\s*=\s*([^;]*).*$)|^.*$/,
+                    //     "$1"
+                    // );
+                    // axios.defaults.headers.common.Authorization = token;
                     checkAdmin();
                 },[]);
 

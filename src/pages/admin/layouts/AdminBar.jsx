@@ -8,6 +8,10 @@ const paths=[
     {
         path:'orders',
         name:'訂單管理'
+    },
+    {
+        path:'logout',
+        name:'登出'
     }
 ] 
 

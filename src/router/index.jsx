@@ -10,6 +10,7 @@ import LoginPage from '../pages/admin/LoginPage';
 import AdminProductPage from '../pages/admin/AdminProductPage';
 import OrderPage from '../pages/admin/OrderPage';
 import AdminBar from '../pages/admin/layouts/AdminBar';
+import LogoutPage from '../pages/admin/LogoutPage';
 
 const index=createHashRouter([
     {
@@ -59,6 +60,10 @@ const index=createHashRouter([
             {
                 path:'orders',
                 element:<OrderPage></OrderPage>
+            },
+            {
+                path:'logout',
+                element:<LogoutPage></LogoutPage>
             }
         ]
     },

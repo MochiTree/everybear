@@ -7,7 +7,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
 import Select from "react-select";
 import Pagination from '../components/Pagination';
-import { Link, Outlet } from "react-router-dom"
+import { Link, Outlet } from "react-router-dom";
+import {useNavigate} from 'react-router-dom';
 
 
 function ProductPage(){
@@ -19,6 +20,8 @@ function ProductPage(){
     const [options,setOptions]=useState([{value:'all',label:'全部'}]);//取得產品資料後，產生分類選項用
     const [selectRes,setSelectRes]=useState([]);//將分類結果放入selectRes陣列
     const [pageStatus, setPageStatus] = useState({});//分頁設定
+    const navigate=useNavigate();
+
     async function getProducts(page=1){
         try{
             const res = await axios.get(`${import.meta.env.VITE_BASE_URL}/v2/api/${import.meta.env.VITE_API_PATH}/products?page=${page}`);
@@ -67,6 +70,7 @@ function ProductPage(){
     //搜尋是從產品列表的title去搜尋,將搜尋結果放入新陣列(每次有搜尋就更新),來取代原先的產品列表顯示
     function searchProduct(){
         // console.log(search);
+        navigate('/products')//從products id返回products
         setLoading(true);
         setSelectRes([]);//將分類還原為全部(all)
 
@@ -106,6 +110,7 @@ function ProductPage(){
 
     function selectProduct(opt){
         let selectResult;
+        navigate('/products')//從products id返回products
         setLoading(true);
         document.getElementById('searchBar').value='';//94~96 分類時將搜尋內部文字(input)與useState清空
         setSearch('');
@@ -161,37 +166,37 @@ function ProductPage(){
              <div className='row row-cols-4'>
                 {/* 當有搜尋/分類結果資料時，顯示搜尋/分類結果*/}
                 {selectRes.length>0 ? (selectRes.map(function(selectItem){
-                return <div className="col py-3" key={selectItem.id}><div className='card'>
+                return <div className="col py-3 d-flex" key={selectItem.id}><div className='card w-100'>
                 <img src={selectItem.imageUrl} className="product-img" alt={selectItem.title}></img>
-                    <div className='card-body position-relative'>
-                        <h5 className="card-title">{selectItem.title}</h5>
-                        <h6 className="card-subtitle mb-2 text-muted">{selectItem.category}</h6>
+                    <div className='card-body position-relative d-flex flex-column justify-content-between'>
+                        <div><h5 className="card-title">{selectItem.title}</h5>
+                        <h6 className="card-subtitle mb-2 text-muted">{selectItem.category}</h6></div>
                         <p className='card-text'>{selectItem.description}</p>
-                        <Link className='btn btn-sm btn-primary my-3' to={`/products/${selectItem.id}`} style={{color:'white'}}>more</Link>
-                        <button className='btn btn-sm btn-success m-3' onClick={()=>addCart(selectItem)}>加入購物車</button>
+                        <div><Link className='btn btn-sm btn-primary my-3' to={`/products/${selectItem.id}`} style={{color:'white'}}>more</Link>
+                        <button className='btn btn-sm btn-success m-3' onClick={()=>addCart(selectItem)}>加入購物車</button></div>
                     </div>
                 </div></div>    
                 }))
                 :(searchRes.length>0 ? (searchRes.map(function(searchItem){
-                return <div className="col py-3" key={searchItem.id}><div className='card'>
+                return <div className="col py-3 d-flex" key={searchItem.id}><div className='card w-100'>
                         <img src={searchItem.imageUrl} className="product-img" alt={searchItem.title}></img>
-                            <div className='card-body position-relative'>
-                                <h5 className="card-title">{searchItem.title}</h5>
-                                <h6 className="card-subtitle mb-2 text-muted">{searchItem.category}</h6>
+                            <div className='card-body position-relative d-flex flex-column justify-content-between'>
+                                <div><h5 className="card-title">{searchItem.title}</h5>
+                                <h6 className="card-subtitle mb-2 text-muted">{searchItem.category}</h6></div>
                                 <p className='card-text'>{searchItem.description}</p>
-                                <Link className='btn btn-sm btn-primary my-3' to={`/products/${searchItem.id}`} style={{color:'white'}}>more</Link>
-                                <button className='btn btn-sm btn-success m-3' onClick={()=>addCart(searchItem)}>加入購物車</button>
+                                <div><Link className='btn btn-sm btn-primary my-3' to={`/products/${searchItem.id}`} style={{color:'white'}}>more</Link>
+                                <button className='btn btn-sm btn-success m-3' onClick={()=>addCart(searchItem)}>加入購物車</button></div>
                             </div>
                         </div></div>}))
                         : (products.map(function(item){
-                return <div className="col py-3" key={item.id}><div className='card'>
+                return <div className="col py-3 d-flex" key={item.id}><div className='card w-100'>
                         <img src={item.imageUrl} className="product-img" alt={item.title}></img>
-                            <div className='card-body position-relative'>
-                                <h5 className="card-title">{item.title}</h5>
-                                <h6 className="card-subtitle mb-2 text-muted">{item.category}</h6>
+                            <div className='card-body position-relative d-flex flex-column justify-content-between'>
+                                <div><h5 className="card-title">{item.title}</h5>
+                                <h6 className="card-subtitle mb-2 text-muted">{item.category}</h6></div>
                                 <p className='card-text'>{item.description}</p>
-                                <Link className='btn btn-sm btn-primary my-3' to={`/products/${item.id}`} style={{color:'white'}}>more</Link>
-                                <button className='btn btn-sm btn-success m-3' onClick={()=>addCart(item)}>加入購物車</button>
+                                <div><Link className='btn btn-sm btn-primary my-3' to={`/products/${item.id}`} style={{color:'white'}}>more</Link>
+                                <button className='btn btn-sm btn-success m-3' onClick={()=>addCart(item)}>加入購物車</button></div>
                             </div>
                         </div></div>}))) }
 
