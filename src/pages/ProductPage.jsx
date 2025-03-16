@@ -38,6 +38,8 @@ function ProductPage(){
 
      //預設瀏覽頁面為第一頁(page=1)
     function changePage(nowPage){
+        setLoading(true)
+
         getProducts(nowPage);
 
         document.getElementById('searchBar').value='';//分頁時將搜尋內部文字(input)與useState清空
@@ -65,6 +67,7 @@ function ProductPage(){
     //搜尋是從產品列表的title去搜尋,將搜尋結果放入新陣列(每次有搜尋就更新),來取代原先的產品列表顯示
     function searchProduct(){
         // console.log(search);
+        setLoading(true);
         setSelectRes([]);//將分類還原為全部(all)
 
         //外層再用map會產生重複結果(巢狀),故僅用fliter
@@ -83,6 +86,7 @@ function ProductPage(){
                 if(item.title.match(search.trim())!=null){//如果搜尋得到 就會丟進去searchResult陣列(trim為刪除空格用，避免不必要的搜尋錯誤)
                                     // console.log(item);
                                     setUnSearch(false);
+                                    setLoading(false);
                                     return item
                                  }
             })
@@ -90,6 +94,7 @@ function ProductPage(){
         setSearchRes(searchResult);
         if(searchResult.length===0){//如果搜尋不到 額外顯示搜尋錯誤提示
             setUnSearch(true);
+            setLoading(false)
         }
         // console.log(unSearch);
         // console.log("結果是",searchRes)console放這裡會有生命週期問題
@@ -101,6 +106,7 @@ function ProductPage(){
 
     function selectProduct(opt){
         let selectResult;
+        setLoading(true);
         document.getElementById('searchBar').value='';//94~96 分類時將搜尋內部文字(input)與useState清空
         setSearch('');
         setSearchRes([]);
@@ -108,9 +114,11 @@ function ProductPage(){
 
             if(opt.value==='all'){//如果選擇 全部(all) 就把類別篩選的陣列清空
                 selectResult=[];
+                setLoading(false);
             }
             else {selectResult = products.filter(function(item){
                  if(item.category===opt.value){//如果篩選得到 就會丟進去selectResult陣列
+                                setLoading(false);
                                 return item
                              }
         })}
@@ -124,6 +132,7 @@ function ProductPage(){
 
       //加入購物車
       async function addCart(item){
+        setLoading(true);
         try{
             await axios.post(`${import.meta.env.VITE_BASE_URL}/v2/api/${import.meta.env.VITE_API_PATH}/cart`,{
                 data:{
@@ -131,9 +140,11 @@ function ProductPage(){
                   qty:Number(1),
                 }
               });
-              alert("已加入購物車");
+            //   alert("已加入購物車");
+              setLoading(false);
         }catch(err){
-            console.log(err)
+            console.log(err);
+            setLoading(false);
         }
       }
 
@@ -156,7 +167,7 @@ function ProductPage(){
                         <h5 className="card-title">{selectItem.title}</h5>
                         <h6 className="card-subtitle mb-2 text-muted">{selectItem.category}</h6>
                         <p className='card-text'>{selectItem.description}</p>
-                        <button className='btn btn-sm btn-primary my-3'><Link to={`/products/${selectItem.id}`} style={{color:'white'}}>more</Link></button>
+                        <Link className='btn btn-sm btn-primary my-3' to={`/products/${selectItem.id}`} style={{color:'white'}}>more</Link>
                         <button className='btn btn-sm btn-success m-3' onClick={()=>addCart(selectItem)}>加入購物車</button>
                     </div>
                 </div></div>    
@@ -168,7 +179,7 @@ function ProductPage(){
                                 <h5 className="card-title">{searchItem.title}</h5>
                                 <h6 className="card-subtitle mb-2 text-muted">{searchItem.category}</h6>
                                 <p className='card-text'>{searchItem.description}</p>
-                                <button className='btn btn-sm btn-primary my-3'><Link to={`/products/${searchItem.id}`} style={{color:'white'}}>more</Link></button>
+                                <Link className='btn btn-sm btn-primary my-3' to={`/products/${searchItem.id}`} style={{color:'white'}}>more</Link>
                                 <button className='btn btn-sm btn-success m-3' onClick={()=>addCart(searchItem)}>加入購物車</button>
                             </div>
                         </div></div>}))
@@ -179,7 +190,7 @@ function ProductPage(){
                                 <h5 className="card-title">{item.title}</h5>
                                 <h6 className="card-subtitle mb-2 text-muted">{item.category}</h6>
                                 <p className='card-text'>{item.description}</p>
-                                <button className='btn btn-sm btn-primary my-3'><Link to={`/products/${item.id}`} style={{color:'white'}}>more</Link></button>
+                                <Link className='btn btn-sm btn-primary my-3' to={`/products/${item.id}`} style={{color:'white'}}>more</Link>
                                 <button className='btn btn-sm btn-success m-3' onClick={()=>addCart(item)}>加入購物車</button>
                             </div>
                         </div></div>}))) }
@@ -189,7 +200,7 @@ function ProductPage(){
              <Pagination pageStatus={pageStatus} changePage={changePage}></Pagination>
              </div>
              {isLoading && (<><div className='d-flex justify-content-center align-items-center'
-            style={{backgroundColor:'rgba(205, 233, 202, 0.4)',position:'fixed',top:0,left:0,right:0,bottom:0}}><Lottie animationData={teaBearLoading} loop={true} style={{width:'18%',height:'18%'}} /></div></>)}
+            style={{backgroundColor:'rgba(205, 233, 202, 0.4)',position:'fixed',top:0,left:0,right:0,bottom:0,zIndex:3}}><Lottie animationData={teaBearLoading} loop={true} style={{width:'18%',height:'18%'}} /></div></>)}
          </>)
 }
 

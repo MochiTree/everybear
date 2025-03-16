@@ -1,16 +1,21 @@
 import axios from 'axios';
 import { useEffect,useState } from 'react';
 import { Link } from 'react-router-dom';
+import Lottie from "lottie-react";
+import teaBearLoading from '../animations/tea-bear-loading.json';
 
 function CartPage(){
     const [cart,setCart]=useState({});
+    const [isLoading,setLoading]=useState(true);
     async function getCart(){
         try{
             const res=await axios.get(`${import.meta.env.VITE_BASE_URL}/v2/api/${import.meta.env.VITE_API_PATH}/cart`)
             setCart(res.data.data)
             console.log(res.data.data)
+            setLoading(false);
         }catch(err){
-            console.log(err)
+            console.log(err);
+            setLoading(false);
     }
 }
     useEffect(function(){
@@ -19,6 +24,7 @@ function CartPage(){
 
     //更新購物車
     async function updateCart(item,qty){
+        setLoading(true);
         if(qty>0){
         try{
             await axios.put(`${import.meta.env.VITE_BASE_URL}/v2/api/${import.meta.env.VITE_API_PATH}/cart/${item.id}`,{
@@ -28,29 +34,37 @@ function CartPage(){
                 }
             });
             getCart();
+            setLoading(false);
         }catch(err){
             alert(err);
         }}else{
         alert('數量不得小於1');}
+        setLoading(false);
     }
 
     //刪除購物車
     async function deleteSingleItem(item){
+        setLoading(true);
         try{
             await axios.delete(`${import.meta.env.VITE_BASE_URL}/v2/api/${import.meta.env.VITE_API_PATH}/cart/${item.id}`);
             getCart();
+            setLoading(false);
         }catch(err){
             alert(err);
+            setLoading(false);
         }
     }
 
     //刪除購物車(所有)
     async function deleteAllCart(){
+        setLoading(true);
         try{
             await axios.delete(`${import.meta.env.VITE_BASE_URL}/v2/api/${import.meta.env.VITE_API_PATH}/carts`);
             getCart();
+            setLoading(false);
         }catch(err){
             alert(err);
+            setLoading(false);
         }
     }
     
@@ -117,7 +131,10 @@ function CartPage(){
             <td colSpan="5" className='text-end'><Link to={'/checkout'} style={{color:'green'}}>前往結帳</Link></td>
         </tr>
         </tfoot>
-    </table></div></>)
+    </table></div>
+    {isLoading && (<><div className='d-flex justify-content-center align-items-center'
+            style={{backgroundColor:'rgba(205, 233, 202, 0.4)',position:'fixed',top:0,left:0,right:0,bottom:0,zIndex:3}}><Lottie animationData={teaBearLoading} loop={true} style={{width:'18%',height:'18%'}} /></div></>)}
+            </>)
 }
 
 export default CartPage

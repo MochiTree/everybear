@@ -42,7 +42,7 @@ const paths=[
 
 
     return (<><nav className="navbar p-0">
-        <ul className='navbar-nav flex-row justify-content-between' style={{backgroundColor:'rgb(155, 158, 190)', width:'100%',padding:'10px 0px'}}>
+        <ul className='navbar-nav flex-row justify-content-between' style={{ width:'100%',padding:'10px 0px'}}>
             <div style={{display:'flex'}}>{paths.map(function(item){
             return <><li key={item.path} className="nav-item" style={{padding:'10px'}}>
             <NavLink className="nav-link" aria-current="page" to={item.path}>{item.name}</NavLink>

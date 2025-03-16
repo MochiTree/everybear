@@ -3,6 +3,8 @@ import { useState,useEffect} from 'react';
 import Pagination from '../../components/Pagination';
 import ProductModal from '../admin/components/ProductModal';
 import DelProductModal from '../admin/components/DelProductModal';
+import Lottie from "lottie-react";
+import teaBearLoading from '../../animations/tea-bear-loading.json';
 
 function AdminProductPage(){
       const [products, setProducts] = useState([]);
@@ -10,6 +12,7 @@ function AdminProductPage(){
       const [isOpen,setIsOpen]=useState(false);
       const [isDelOpen,setDelIsOpen]=useState(false);
       const [pageStatus, setPageStatus] = useState({});
+      const [isLoading,setLoading]=useState(true);
 
 
       const defaultModalState = {
@@ -54,6 +57,7 @@ function AdminProductPage(){
                 const res = await axios.get(`${import.meta.env.VITE_BASE_URL}/v2/api/${import.meta.env.VITE_API_PATH}/admin/products?page=${page}`);
                 setProducts(res.data.products);
                 setPageStatus(res.data.pagination);
+                setLoading(false)
                 } catch (err) {
                 alert(err.message);
                 }
@@ -66,6 +70,7 @@ function AdminProductPage(){
 
             //預設瀏覽頁面為第一頁(page=1)
             function changePage(nowPage){
+                setLoading(true)
                 getProducts(nowPage);
             }
 
@@ -106,7 +111,10 @@ function AdminProductPage(){
             </table>
             <Pagination pageStatus={pageStatus} changePage={changePage}></Pagination>
             </div>
-      </div></>)
+      </div>
+      {isLoading && (<><div className='d-flex justify-content-center align-items-center'
+            style={{backgroundColor:'rgba(205, 233, 202, 0.4)',position:'fixed',top:0,left:0,right:0,bottom:0,zIndex:3}}><Lottie animationData={teaBearLoading} loop={true} style={{width:'18%',height:'18%'}} /></div></>)}
+      </>)
 }
 
 export default AdminProductPage;

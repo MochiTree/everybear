@@ -2,18 +2,23 @@ import axios from 'axios';
 import { useState,useEffect} from 'react';
 import OrderModal from '../admin/components/OrderModal';
 import DelOrderModal from '../admin/components/DelOrderModal';
+import Lottie from "lottie-react";
+import teaBearLoading from '../../animations/tea-bear-loading.json';
 function OrderPage(){
     const [orders,setOrders]=useState([]);
     const [isOpen,setIsOpen]=useState(false);
     const [isDelOpen,setDelIsOpen]=useState(false);
+    const [isLoading,setLoading]=useState(true);
 
     async function getOrder(){
         try{
             const res=await axios.get(`${import.meta.env.VITE_BASE_URL}/v2/api/${import.meta.env.VITE_API_PATH}/admin/orders`)
             console.log(res.data)
             setOrders(res.data.orders)
+            setLoading(false)
         }catch(err){
-            console.log(err)
+            console.log(err);
+            setLoading(false);
         }
     }
     useEffect(function(){
@@ -60,7 +65,10 @@ function OrderPage(){
             </tr>)
             })}
             </tbody>
-            </table></>)
+            </table>
+            {isLoading && (<><div className='d-flex justify-content-center align-items-center'
+            style={{backgroundColor:'rgba(205, 233, 202, 0.4)',position:'fixed',top:0,left:0,right:0,bottom:0,zIndex:3}}><Lottie animationData={teaBearLoading} loop={true} style={{width:'18%',height:'18%'}} /></div></>)}
+            </>)
 }
 
 export default OrderPage

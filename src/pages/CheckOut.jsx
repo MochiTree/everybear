@@ -2,16 +2,20 @@ import axios from 'axios';
 import { useForm } from "react-hook-form";
 import { useEffect,useState } from 'react';
 import { Link } from 'react-router-dom';
+import Lottie from "lottie-react";
+import teaBearLoading from '../animations/tea-bear-loading.json';
 
 function CheckOut(){
     const [cart,setCart]=useState({});
+    const [isLoading,setLoading]=useState(true);
     async function getCart(){
         try{
             const res=await axios.get(`${import.meta.env.VITE_BASE_URL}/v2/api/${import.meta.env.VITE_API_PATH}/cart`)
             setCart(res.data.data)
-          
+            setLoading(false)
         }catch(err){
-            console.log(err)
+            console.log(err);
+            setLoading(false);
     }
 }
     useEffect(function(){
@@ -39,12 +43,15 @@ function CheckOut(){
     })
 
     async function checkoutCart(formData) {
+        setLoading(true)
         try{
             await axios.post(`${import.meta.env.VITE_BASE_URL}/v2/api/${import.meta.env.VITE_API_PATH}/order`,formData);
             alert('結帳成功');
             getCart();
             reset();
+            setLoading(false)
         }catch(err){
+            setLoading(false)
             console.log(err);
             alert('結帳失敗');
         }
@@ -161,6 +168,8 @@ function CheckOut(){
                     </div>
                     </form>
                 </div></div>
+                {isLoading && (<><div className='d-flex justify-content-center align-items-center'
+            style={{backgroundColor:'rgba(205, 233, 202, 0.4)',position:'fixed',top:0,left:0,right:0,bottom:0,zIndex:3}}><Lottie animationData={teaBearLoading} loop={true} style={{width:'18%',height:'18%'}} /></div></>)}
                 </>)
 
 }
