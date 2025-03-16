@@ -8,7 +8,6 @@ function LoginPage() {
   }) 
   const navigate=useNavigate()
 
-    // const [isAdmin,setIsAdmin]=useState(false);
     function updateEnter(e){
 
   
@@ -26,7 +25,6 @@ function LoginPage() {
           alert(res.data.message);
           const {token, expired} = res.data;
           document.cookie = `loginToken=${token}; expires=${new Date(expired)}`;
-          // setIsAdmin(true);
           axios.defaults.headers.common['Authorization'] = `${token}`;
           navigate('/admin/products');
     

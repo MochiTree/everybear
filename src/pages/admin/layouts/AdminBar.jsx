@@ -1,4 +1,7 @@
 import { NavLink, Outlet } from "react-router-dom"
+import { useEffect } from "react";
+import {useNavigate} from 'react-router-dom';
+import axios from "axios";
 // import '../assets/reset.css'
 const paths=[
     {
@@ -11,8 +14,32 @@ const paths=[
     }
 ] 
 
-
  function AdminBar(){
+    
+    const navigate= useNavigate();
+
+
+  useEffect(function() {
+    //取得目前的token
+    const token = document.cookie.replace(
+      /(?:(?:^|.*;\s*)loginToken\s*=\s*([^;]*).*$)|^.*$/,
+      "$1"
+    );
+    axios.defaults.headers.common.Authorization = `${token}`;
+    checkAdmin();
+  }, []);
+    //登入驗證 不成功就回到登入頁面
+    async function checkAdmin() {
+        try {
+          await axios.post(`${import.meta.env.VITE_BASE_URL}/api/user/check`);
+          navigate("/admin/products");
+
+        } catch (err) {
+          navigate("/admin/login");
+          alert(err.response.data.message);
+        }
+      };
+
 
     return (<><nav className="navbar p-0">
         <ul className='navbar-nav flex-row justify-content-between' style={{backgroundColor:'rgb(155, 158, 190)', width:'100%',padding:'10px 0px'}}>
