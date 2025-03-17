@@ -8,13 +8,17 @@ function ProductDetail(){
     let params=useParams();//取得路由上的productId
     const [product,setProduct]=useState([]);
     const [isLoading,setLoading]=useState(true);
+    const [imgMulti,setMulti]=useState(true);
 
     async function getProductDetail(){
         try{
             const res = await axios.get(`${import.meta.env.VITE_BASE_URL}/v2/api/${import.meta.env.VITE_API_PATH}/product/${params.productId}`)
             console.log(res.data.product)
             let result = res.data.product;
-            result.imagesUrl.push(res.data.product.imageUrl);
+            if(result.imagesUrl[0].length!=''){
+            result.imagesUrl.unshift(res.data.product.imageUrl);
+            setMulti(true);
+            }
             setProduct(result)
             setLoading(false);
         }catch(err){
@@ -26,17 +30,31 @@ function ProductDetail(){
     useEffect(function(){
         getProductDetail();
         setLoading(true);
-        window.scroll({top: 0, left: 0, behavior: 'smooth' })
+        window.scroll({top: 0, left: 0, behavior: 'smooth' });
+        setMulti(false);
     },[params])
 
     function changeImg(src){
-
+    window.scroll({top: 0, left: 0, behavior: 'smooth' })
     setProduct({...product,imageUrl:src})
     
     }
-    return (<><h1 className='h1'>{product.title}</h1>
-            <img src={product.imageUrl} className='productDetail-img'></img>
-            其他圖片<div className='d-flex flex-wrap'>{product?.imagesUrl?.map(function(item){
+    return (<><div className='p-5 rounded-2 ' style={{backgroundColor:'rgba(99, 145, 120,0.5)'}}><div className='d-flex'><h1 className='h1'>{product.title}</h1><span>{product.category}</span></div>
+            <div className='row'>
+            <div className='col-md-6 col-lg-7'>
+                 <img src={product.imageUrl} className='productDetail-img'></img>
+            </div>            
+            <div className='col-md-6 col-lg-5'>
+                <ul className='d-flex flex-column lh-lg'>
+                    <li className='my-3'>{product.description}</li>
+                    商品規格：<li className='my-3'>{product.content}</li>
+                    原價：<li className='my-3'>{product.origin_price}</li>
+                    促銷：<li className='my-3'>{product.price}</li>
+                    <li className='my-3'><button className="rounded-3 btn btn-success">加入購物車</button></li>
+                </ul>
+            </div>
+            </div></div>
+            {imgMulti && <p className='h5 mt-5 pt-3 border-top'>其他圖片</p>}<div className='d-flex flex-wrap  border-bottom pb-5'>{product?.imagesUrl?.map(function(item){
                 if(item!=''){
                         return <img src={item} className='img-thumbnail w-25 small-img' onClick={function(){changeImg(item)}}></img>
                         }

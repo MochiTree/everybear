@@ -68,14 +68,15 @@ function CartPage(){
         }
     }
     
-        return (<><div className='container py-5'><table className="table align-middle text-center table-primary table-striped">
+        return (<><div className='container py-5 mt-5 cartPage'>
+            <table className="table align-middle text-center">
         <thead className='text-center'>
         <tr>
-            <th className='bg-success'></th>
-            <th className='bg-success'>圖片</th>
-            <th className='bg-success'>品名</th>
-            <th className='bg-success'>數量</th>
-            <th className="bg-success">單價</th>
+            <th></th>
+            <th>圖片</th>
+            <th>品名</th>
+            <th>數量</th>
+            <th>單價</th>
         </tr>
         </thead>
 
@@ -85,10 +86,10 @@ function CartPage(){
         <tr key={item.id}>
         <td>
         <button type="button" className="btn btn-outline-danger btn-sm" onClick={()=>deleteSingleItem(item)}>
-            x
+            刪除
         </button>
         </td>
-        <td><img src={item.product.imageUrl} className='img-thumbnail small-img' style={{width:'300px'}}></img></td>
+        <td><img src={item.product.imageUrl} className='rounded-3 small-img' style={{width:'300px'}}></img></td>
         <td>{item.product.title}</td>
         <td>
         <div className="d-flex align-items-center justify-content-center">

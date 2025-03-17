@@ -21,7 +21,7 @@ const paths=[
  function TopBar(){
     // const href=['首頁','產品列表']
     
-    return (<><div style={{position:'fixed',top:0,left:0,right:0}}><nav className="navbar p-0">
+    return (<><div style={{position:'fixed',top:0,left:0,right:0,zIndex:99,backgroundColor:'rgba(142,175,157,0.7)'}}><nav className="navbar p-0">
         <ul className='navbar-nav flex-row justify-content-between' style={{width:'100%',padding:'10px 0px'}}>
             <div style={{display:'flex'}}>{paths.map(function(item){
             return <><li key={item.path} className="nav-item" style={{padding:'10px'}}>
