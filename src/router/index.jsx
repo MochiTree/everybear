@@ -11,11 +11,12 @@ import AdminProductPage from '../pages/admin/AdminProductPage';
 import OrderPage from '../pages/admin/OrderPage';
 import AdminBar from '../pages/admin/layouts/AdminBar';
 import LogoutPage from '../pages/admin/LogoutPage';
+import ScrollTopBtn from '../layouts/ScrollTopBtn';
 
 const index=createHashRouter([
     {
         path:'/',
-        element: <TopBar></TopBar>,
+        element: <><TopBar></TopBar><ScrollTopBtn></ScrollTopBtn></>,
         children:[
             {
                 path:'',

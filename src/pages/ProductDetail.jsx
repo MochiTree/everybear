@@ -39,6 +39,23 @@ function ProductDetail(){
     setProduct({...product,imageUrl:src})
     
     }
+
+    async function addCart(item){
+        setLoading(true);
+        try{
+            await axios.post(`${import.meta.env.VITE_BASE_URL}/v2/api/${import.meta.env.VITE_API_PATH}/cart`,{
+                data:{
+                  product_id:item.id,
+                  qty:Number(1),
+                }
+              });
+              setLoading(false);
+        }catch(err){
+            console.log(err);
+            setLoading(false);
+        }
+      }
+
     return (<><div className='p-5 rounded-2 ' style={{backgroundColor:'rgba(99, 145, 120,0.5)'}}><div className='d-flex'><h1 className='h1'>{product.title}</h1><span>{product.category}</span></div>
             <div className='row'>
             <div className='col-md-6 col-lg-7'>
@@ -50,7 +67,7 @@ function ProductDetail(){
                     商品規格：<li className='my-3'>{product.content}</li>
                     原價：<li className='my-3'>{product.origin_price}</li>
                     促銷：<li className='my-3'>{product.price}</li>
-                    <li className='my-3'><button className="rounded-3 btn btn-success">加入購物車</button></li>
+                    <li className='my-3'><button className="rounded-3 btn btn-success" onClick={()=>addCart(product)}>加入購物車</button></li>
                 </ul>
             </div>
             </div></div>
