@@ -63,7 +63,7 @@ function OrderPage(){
     return (<>訂單管理
                 <OrderModal orderContent={orderContent} isOpen={isOpen} setIsOpen={setIsOpen} setContent={setContent} getOrders={getOrder}></OrderModal>
                 <DelOrderModal getOrders={getOrder} orderContent={orderContent} isDelOpen={isDelOpen} setDelIsOpen={setDelIsOpen} setContent={setContent}></DelOrderModal>
-        <table className="table">
+        <table className="table  lxgw-wenkai-mono-tc-regular">
             <thead>
             <tr>
             <th scope="col">訂購人</th>

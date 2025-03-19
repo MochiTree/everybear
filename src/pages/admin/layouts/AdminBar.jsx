@@ -17,7 +17,7 @@ const paths=[
 
  function AdminBar(){
 
-    return (<><nav className="navbar p-0">
+    return (<><nav className="navbar p-0  lxgw-wenkai-mono-tc-regular">
         <ul className='navbar-nav flex-row justify-content-between' style={{ width:'100%',padding:'10px 0px'}}>
             <div style={{display:'flex'}}>{paths.map(function(item){
             return <><li key={item.path} className="nav-item" style={{padding:'10px'}}>

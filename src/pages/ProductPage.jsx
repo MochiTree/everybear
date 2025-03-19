@@ -154,11 +154,11 @@ function ProductPage(){
       }
 
       
-    return (<><div  className='d-flex justify-content-center m-5 pt-5'><input id='searchBar' type='text' placeholder='搜尋' onChange={function(e){setSearch(e.target.value)}}></input>
+    return (<><div  className='d-flex justify-content-center m-5 pt-5 lxgw-wenkai-mono-tc-regular'><input id='searchBar' type='text' placeholder='搜尋' onChange={function(e){setSearch(e.target.value)}}></input>
             <div className='d-flex align-items-center px-2'><button className='btn btn-sm btn-primary' onClick={searchProduct}><FontAwesomeIcon icon={faMagnifyingGlass} /></button></div>
             <Select options={options} placeholder='透過類別搜尋' onChange={function(opt){selectProduct(opt)}}/></div>
              {/* <div style={{display:'flex'}}> */}
-             <div className="container">
+             <div className="container lxgw-wenkai-mono-tc-regular">
              <Outlet></Outlet>
 
              <h1 className='py-5 text-center h2'>產品列表</h1>

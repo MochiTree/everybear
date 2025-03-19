@@ -39,7 +39,7 @@ function DelProductModal(props) {
   }
     return (
                 <div
-                className="modal fade"
+                className="modal fade lxgw-wenkai-mono-tc-regular"
                 ref={delModalRef}
                 id="delProductModal"
                 tabIndex="-1"

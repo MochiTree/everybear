@@ -33,6 +33,7 @@ function LoginPage() {
       }
       
        return <>
+       <div className="container lxgw-wenkai-mono-tc-regular">
        <h2 className='mb-5 display-2 fw-bold'>登入</h2><form>
        <div className="form-group mb-3">
        <label htmlFor="email" className='pb-2'>Email</label>
@@ -43,7 +44,7 @@ function LoginPage() {
        <input type="password" name='password' className="form-control form-control-lg" id="password" onChange={updateEnter} />
        </div>
        <button onClick={login} type="submit" className="btn btn-primary">登入</button>
-</form></>
+</form></div></>
 }
 
 export default LoginPage;

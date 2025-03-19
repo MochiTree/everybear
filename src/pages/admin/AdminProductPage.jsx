@@ -102,7 +102,7 @@ function AdminProductPage(){
     return (<>
             <ProductModal modalMode={modalMode} productContent={productContent} isOpen={isOpen} setIsOpen={setIsOpen} setContent={setContent} getProducts={getProducts}></ProductModal>
             <DelProductModal getProducts={getProducts} productContent={productContent} isDelOpen={isDelOpen} setDelIsOpen={setDelIsOpen} setContent={setContent}></DelProductModal>
-                <div className="row">
+                <div className="row  lxgw-wenkai-mono-tc-regular">
                     <div className='col col'>
                     <div className='d-flex justify-content-between'>
                     <h1 className='fw-bold'>後台頁面</h1><button className='btn btn-primary' onClick={()=>{handleOpenProductModal('add')}}>加入新產品</button></div>

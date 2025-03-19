@@ -68,7 +68,7 @@ function CartPage(){
         }
     }
     
-        return (<><div className='container py-5 mt-5 cartPage'>
+        return (<><div className='container py-5 mt-5 cartPage lxgw-wenkai-mono-tc-regular'>
             <table className="table align-middle text-center">
         <thead className='text-center'>
         <tr>

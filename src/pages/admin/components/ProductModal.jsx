@@ -97,7 +97,7 @@ function ProductModal(props) {
                 }
             }
 
-    return(<div id="productModal" ref={modalRef} className="modal fade" style={{ backgroundColor: "rgba(0,0,0,0.5)" }}>
+    return(<div id="productModal" ref={modalRef} className="modal fade lxgw-wenkai-mono-tc-regular" style={{ backgroundColor: "rgba(0,0,0,0.5)" }}>
         <div className="modal-dialog modal-dialog-centered modal-xl">
           <div className="modal-content border-0 shadow">
             <div className="modal-header border-bottom">
