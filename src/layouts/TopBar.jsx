@@ -29,7 +29,7 @@ const paths=[
         <Link className="nav-link" aria-current="page" to='/'>
         <div className='h2 d-flex align-items-center'>
         <div className='d-flex justify-content-end w-25'>
-            <img src={Navbear}  className='object-fit-cover w-25'></img>
+            <img src={Navbear}  className='object-fit-cover w-50 w-sm-25'></img>
         </div>
         <h1>熊滿屋</h1>
         </div>

@@ -59,7 +59,7 @@ function CheckOut(){
 
     return (<><h1>結帳頁面</h1>
      <div className='container mt-5 pt-5 lxgw-wenkai-mono-tc-regular'>
-        {cart?.carts?.length>0 && <div>請確認購物車資料<Link to={'../carts'}>修改訂單</Link></div>}
+        {cart?.carts?.length>0 && <div><p className='py-3'>請確認購物車資料</p><Link to={'../carts'} style={{color:'green'}}>修改訂單</Link></div>}
         <ul>{cart.carts?.map(function(item){
                 return <li key={item.id} className='d-flex align-items-center justify-content-between my-3 border'>
                     <img src={item.product.imageUrl} className='img-thumbnail object-fit-cover' style={{height:'100px',width:'100px'}}></img>

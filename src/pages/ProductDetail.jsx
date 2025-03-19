@@ -56,7 +56,7 @@ function ProductDetail(){
         }
       }
 
-    return (<><div className='p-5 rounded-2 ' style={{backgroundColor:'rgba(99, 145, 120,0.5)'}}><div className='d-flex'><h1 className='h1'>{product.title}</h1><span>{product.category}</span></div>
+    return (<><div className='p-3 p-sm-5 rounded-2 ' style={{backgroundColor:'rgba(99, 145, 120,0.5)'}}><div className='d-flex'><h1 className='h1'>{product.title}</h1><span>{product.category}</span></div>
             <div className='row'>
             <div className='col-md-6 col-lg-7'>
                  <img src={product.imageUrl} className='productDetail-img'></img>
@@ -73,7 +73,7 @@ function ProductDetail(){
             </div></div>
             {imgMulti && <p className='h5 mt-5 pt-3 border-top'>其他圖片</p>}<div className='d-flex flex-wrap  border-bottom pb-5'>{product?.imagesUrl?.map(function(item){
                 if(item!=''){
-                        return <img src={item} className='img-thumbnail w-25 small-img' onClick={function(){changeImg(item)}}></img>
+                        return <img src={item} className='img-thumbnail w-50 w-sm-25  small-img' onClick={function(){changeImg(item)}}></img>
                         }
             })}</div>
             {isLoading && (<><div className='d-flex justify-content-center align-items-center'

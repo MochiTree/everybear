@@ -154,16 +154,17 @@ function ProductPage(){
       }
 
       
-    return (<><div  className='d-flex justify-content-center m-5 pt-5 lxgw-wenkai-mono-tc-regular'><input id='searchBar' type='text' placeholder='搜尋' onChange={function(e){setSearch(e.target.value)}}></input>
-            <div className='d-flex align-items-center px-2'><button className='btn btn-sm btn-primary' onClick={searchProduct}><FontAwesomeIcon icon={faMagnifyingGlass} /></button></div>
-            <Select options={options} placeholder='透過類別搜尋' onChange={function(opt){selectProduct(opt)}}/></div>
+    return (<><div  className='d-sm-flex justify-content-center text-center m-5 pt-5 lxgw-wenkai-mono-tc-regular'>
+        <input id='searchBar' className='rounded searchStyle p-2 p-sm-0' type='text' placeholder='搜尋' onChange={function(e){setSearch(e.target.value)}}></input>
+            <div className='d-sm-flex  align-items-center mx-sm-2 mt-3 mt-sm-0'><button className='btn btn-sm btn-primary w-100' onClick={searchProduct}><FontAwesomeIcon icon={faMagnifyingGlass} /></button></div>
+            <Select options={options} placeholder='透過類別搜尋' className='mt-3 mt-sm-0' onChange={function(opt){selectProduct(opt)}}/></div>
              {/* <div style={{display:'flex'}}> */}
              <div className="container lxgw-wenkai-mono-tc-regular">
              <Outlet></Outlet>
 
              <h1 className='py-5 text-center h2'>產品列表</h1>
              {unSearch && <div className='d-flex justify-content-center py-3 mb-3 bg-success'>搜尋不到相關商品</div>}
-             <div className='row row-cols-4'>
+             <div className='row row-cols-xl-4 row-cols-md-3 row-cols-sm-2 row-cols-1'>
                 {/* 當有搜尋/分類結果資料時，顯示搜尋/分類結果*/}
                 {selectRes.length>0 ? (selectRes.map(function(selectItem){
                 return <div className="col py-3 d-flex" key={selectItem.id}><div className='card w-100 lh-base'>
