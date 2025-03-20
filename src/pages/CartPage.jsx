@@ -3,16 +3,24 @@ import { useEffect,useState } from 'react';
 import { Link } from 'react-router-dom';
 import Lottie from "lottie-react";
 import teaBearLoading from '../animations/tea-bear-loading.json';
+import { useNavigate } from 'react-router-dom';
 
 function CartPage(){
     const [cart,setCart]=useState({});
     const [isLoading,setLoading]=useState(true);
+    const navigate=useNavigate();
+
     async function getCart(){
         try{
             const res=await axios.get(`${import.meta.env.VITE_BASE_URL}/v2/api/${import.meta.env.VITE_API_PATH}/cart`)
-            setCart(res.data.data)
-            console.log(res.data.data)
             setLoading(false);
+            console.log(res.data.data)
+            if(res.data.data.carts.length===0){
+                alert('還沒有將產品加入購物車喔，快去看看！')
+                navigate("/products");
+            }else if(res.data.data.carts.length>0) {
+                setCart(res.data.data)
+            }
         }catch(err){
             console.log(err);
             setLoading(false);
