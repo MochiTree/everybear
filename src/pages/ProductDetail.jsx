@@ -62,11 +62,11 @@ function ProductDetail(){
                  <img src={product.imageUrl} className='productDetail-img'></img>
             </div>            
             <div className='col-md-6 col-lg-5'>
-                <ul className='d-flex flex-column lh-lg'>
+                <ul className='d-flex flex-column lh-lg fs-4'>
                     <li className='my-3'>{product.description}</li>
-                    商品規格：<li className='my-3'>{product.content}</li>
-                    原價：<li className='my-3'>{product.origin_price}</li>
-                    促銷：<li className='my-3'>{product.price}</li>
+                    <p className='fw-bold'>商品規格：</p><li className='my-3'>{product.content}</li>
+                    <p className='fw-bold'>原價：</p><li className='my-3'>{product.origin_price}</li>
+                    <p className='fw-bold'>促銷：</p><li className='my-3'>{product.price}</li>
                     <li className='my-3'><button className="rounded-3 btn btn-success" onClick={()=>addCart(product)}>加入購物車</button></li>
                 </ul>
             </div>

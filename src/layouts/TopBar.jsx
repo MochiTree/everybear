@@ -23,7 +23,7 @@ const paths=[
     // const href=['首頁','產品列表']
     
     return (<><div style={{position:'fixed',top:0,left:0,right:0,zIndex:99,backgroundColor:'rgba(142,175,157,0.7)'}}><nav className="navbar p-0 lxgw-wenkai-mono-tc-regular">
-        <ul className='navbar-nav flex-row' style={{width:'100%',padding:'10px 0px'}}>
+        <ul className='navbar-nav flex-row justify-content-between' style={{width:'100%',padding:'10px 0px 0px 0px'}}>
        
             
         <Link className="nav-link" aria-current="page" to='/'>
@@ -34,16 +34,41 @@ const paths=[
         <h1>熊滿屋</h1>
         </div>
         </Link>
-            
-       
-        <div className='d-flex  justify-content-evenly w-75'>
-            <div style={{display:'flex'}}>{paths.map(function(item){
+
+
+        <div className='d-flex justify-content-evenly align-items-center'>
+ 
+
+            <div className='d-none d-md-flex'>{paths.map(function(item){
             return <><li key={item.path} className="nav-item" style={{padding:'10px'}}>
-            <NavLink className="nav-link" aria-current="page" to={item.path}>{item.name}</NavLink>
+            <NavLink className="nav-link fs-5" aria-current="page" to={item.path}>{item.name}</NavLink>
             </li></>
             })}
       </div>
-      <div><li style={{padding:'10px'}}><NavLink className="nav-link" aria-current="page" to='carts'><FontAwesomeIcon icon={faCartShopping} /></NavLink></li></div></div>
+      <div><li style={{padding:'10px'}}><NavLink className="nav-link" aria-current="page" to='carts'><FontAwesomeIcon icon={faCartShopping} /></NavLink></li></div>
+      <div className="d-md-none">
+        <div className="collapse" id="navbarToggleExternalContent">
+            <div className="p-2 pt-0 d-block" style={{backgroundColor:'rgba(142, 175, 157, 0.94)'}}>
+            <div className=''>{paths.map(function(item){
+                        return <><li key={item.path} className="nav-item" style={{padding:'10px'}}>
+                        <NavLink className="nav-link" aria-current="page" to={item.path}>{item.name}</NavLink>
+                        </li></>
+                        })}
+                </div>
+            </div>
+            </div>
+
+            <nav className="navbar">
+            <div className="">
+
+                <span className="navbar-toggler-icon">
+                    <div className="p-3"  data-bs-toggle="collapse" data-bs-target="#navbarToggleExternalContent" aria-controls="navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation"></div>
+                </span>
+                
+            </div>
+            </nav></div>
+      
+      </div>
       </ul></nav></div>
      <Outlet></Outlet>
   </>)}

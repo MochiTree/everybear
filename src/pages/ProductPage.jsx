@@ -162,7 +162,7 @@ function ProductPage(){
              <div className="container lxgw-wenkai-mono-tc-regular">
              <Outlet></Outlet>
 
-             <h1 className='py-5 text-center h2'>產品列表</h1>
+             <h1 className='py-5 text-center h2 fw-bolder'>產品列表</h1>
              {unSearch && <div className='d-flex justify-content-center py-3 mb-3 bg-success'>搜尋不到相關商品</div>}
              <div className='row row-cols-xl-4 row-cols-md-3 row-cols-sm-2 row-cols-1'>
                 {/* 當有搜尋/分類結果資料時，顯示搜尋/分類結果*/}
@@ -170,8 +170,8 @@ function ProductPage(){
                 return <div className="col py-3 d-flex" key={selectItem.id}><div className='card w-100 lh-base'>
                 <img src={selectItem.imageUrl} className="product-img" alt={selectItem.title}></img>
                     <div className='card-body position-relative d-flex flex-column justify-content-between'>
-                        <div><h5 className="card-title">{selectItem.title}</h5>
-                        <h6 className="card-subtitle mb-2 text-muted">{selectItem.category}</h6></div>
+                        <div><h5 className="card-title fs-2 fw-bold">{selectItem.title}</h5>
+                        <h6 className="card-subtitle fs-4 mb-2 text-muted">{selectItem.category}</h6></div>
                         <p className='card-text'>{selectItem.description}</p>
                         <div><Link className='btn btn-sm btn-primary my-3' to={`/products/${selectItem.id}`} style={{color:'white'}}>more</Link>
                         <button className='btn btn-sm btn-success m-3' onClick={()=>addCart(selectItem)}>加入購物車</button></div>
@@ -182,8 +182,8 @@ function ProductPage(){
                 return <div className="col py-3 d-flex" key={searchItem.id}><div className='card w-100 lh-base'>
                         <img src={searchItem.imageUrl} className="product-img" alt={searchItem.title}></img>
                             <div className='card-body position-relative d-flex flex-column justify-content-between'>
-                                <div><h5 className="card-title">{searchItem.title}</h5>
-                                <h6 className="card-subtitle mb-2 text-muted">{searchItem.category}</h6></div>
+                                <div><h5 className="card-title fs-2 fw-bold">{searchItem.title}</h5>
+                                <h6 className="card-subtitle fs-4 mb-2 text-muted">{searchItem.category}</h6></div>
                                 <p className='card-text'>{searchItem.description}</p>
                                 <div><Link className='btn btn-sm btn-primary my-3' to={`/products/${searchItem.id}`} style={{color:'white'}}>more</Link>
                                 <button className='btn btn-sm btn-success m-3' onClick={()=>addCart(searchItem)}>加入購物車</button></div>
@@ -193,8 +193,8 @@ function ProductPage(){
                 return <div className="col py-3 d-flex" key={item.id}><div className='card w-100 lh-base'>
                         <img src={item.imageUrl} className="product-img" alt={item.title}></img>
                             <div className='card-body position-relative d-flex flex-column justify-content-between'>
-                                <div><h5 className="card-title">{item.title}</h5>
-                                <h6 className="card-subtitle mb-2 text-muted">{item.category}</h6></div>
+                                <div><h5 className="card-title fs-2 fw-bold">{item.title}</h5>
+                                <h6 className="card-subtitle fs-4 mb-2 text-muted">{item.category}</h6></div>
                                 <p className='card-text'>{item.description}</p>
                                 <div><Link className='btn btn-sm btn-primary my-3' to={`/products/${item.id}`} style={{color:'white'}}>more</Link>
                                 <button className='btn btn-sm btn-success m-3' onClick={()=>addCart(item)}>加入購物車</button></div>
