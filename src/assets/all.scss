@@ -49,3 +49,12 @@ body {
         border: 3px solid #555;
       }
 }
+
+.isOpacity {
+    transition: 0.5s;
+    opacity: 0;
+}
+
+.unOpacity{
+    opacity: 1;
+}
