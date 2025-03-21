@@ -69,7 +69,7 @@ function CheckOut(){
                         <div className='py-3 fw-bolder fs-5'>{`合計:${item.final_total}`}</div>
                 </li>
         })}
-                    {cart?.carts?.length>0  && <div className='d-flex justify-content-sm-end justify-content-center'><li style={{textAlign:'right'}} className='py-3 fw-bolder fs-5'>總計:{cart.total}</li></div>}       
+                    {cart?.carts?.length>0  && <div className='d-flex justify-content-sm-end justify-content-center align-items-center'><li style={{textAlign:'right'}} className='py-3 fw-bolder fs-5'>總計:{cart.total}</li></div>}       
         </ul>
 
      <div className="my-5 row justify-content-center">

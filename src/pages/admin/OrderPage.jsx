@@ -60,12 +60,14 @@ function OrderPage(){
             setContent(item)
             setDelIsOpen(true);
           }   
-    return (<>訂單管理
+    return (<>
                 <OrderModal orderContent={orderContent} isOpen={isOpen} setIsOpen={setIsOpen} setContent={setContent} getOrders={getOrder}></OrderModal>
                 <DelOrderModal getOrders={getOrder} orderContent={orderContent} isDelOpen={isDelOpen} setDelIsOpen={setDelIsOpen} setContent={setContent}></DelOrderModal>
-        <table className="table  lxgw-wenkai-mono-tc-regular">
+       <div className="container  lxgw-wenkai-mono-tc-regular">
+        <h1 className='fw-bold fs-3 mb-2'>訂單管理</h1>
+        <table className="table">
             <thead>
-            <tr>
+            <tr className='fs-4'>
             <th scope="col">訂購人</th>
             <th scope="col">訂單金額</th>
             <th scope="col">付款狀態</th>
@@ -76,19 +78,20 @@ function OrderPage(){
             </thead>
             <tbody>
             {orders.map(function(item){
-            return(<tr key={item.id}>
+            return(<tr key={item.id} className='fs-5'>
             <th scope="row">{item.user.name}</th>
             <td>{item.total}</td>
             <td>{item.is_enabled ? <span className='text-success'>已付款</span>: <span>未付款</span>}</td>
             <td>{item.user.tel}</td>
-            <div className="btn-group">
+            <td><div className="btn-group">
             <button className='btn btn-primary btn-sm'onClick={function() {
                 handleOpenOrderModal(item);
-            }}>編輯</button><button className='btn btn-danger btn-sm' onClick={()=>handleOpenDelOrderModal(item)}>刪除</button></div>
+            }}>編輯</button><button className='btn btn-danger btn-sm' onClick={()=>handleOpenDelOrderModal(item)}>刪除</button></div></td>
             </tr>)
             })}
             </tbody>
             </table>
+            </div>
             {isLoading && (<><div className='d-flex justify-content-center align-items-center'
             style={{backgroundColor:'rgba(205, 233, 202, 0.4)',position:'fixed',top:0,left:0,right:0,bottom:0,zIndex:3}}><Lottie animationData={teaBearLoading} loop={true} style={{width:'18%',height:'18%'}} /></div></>)}
             </>)

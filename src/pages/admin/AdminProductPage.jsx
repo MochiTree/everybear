@@ -102,37 +102,40 @@ function AdminProductPage(){
     return (<>
             <ProductModal modalMode={modalMode} productContent={productContent} isOpen={isOpen} setIsOpen={setIsOpen} setContent={setContent} getProducts={getProducts}></ProductModal>
             <DelProductModal getProducts={getProducts} productContent={productContent} isDelOpen={isDelOpen} setDelIsOpen={setDelIsOpen} setContent={setContent}></DelProductModal>
+                <div className="container">
                 <div className="row  lxgw-wenkai-mono-tc-regular">
                     <div className='col col'>
                     <div className='d-flex justify-content-between'>
-                    <h1 className='fw-bold'>後台頁面</h1><button className='btn btn-primary' onClick={()=>{handleOpenProductModal('add')}}>加入新產品</button></div>
+                    <h1 className='fw-bold fs-3'>後台頁面</h1><button className='btn btn-primary' onClick={()=>{handleOpenProductModal('add')}}>加入新產品</button></div>
                 <table className="table">
             <thead>
-            <tr>
+            <tr className='fs-4'>
             <th scope="col">產品名稱</th>
             <th scope="col">原價</th>
             <th scope="col">售價</th>
             <th scope="col">是否啟用</th>
+            <th scope="col">編輯/刪除</th>
 
             </tr>
             </thead>
             <tbody>
             {products.map(function(item){
-            return(<tr key={item.id}>
+            return(<tr key={item.id} className='fs-5'>
             <th scope="row">{item.title}</th>
             <td>{item.origin_price}</td>
             <td>{item.price}</td>
             <td>{item.is_enabled ? <span className='text-success'>已啟用</span>: <span>未啟用</span>}</td>
-            <div className="btn-group">
+            <td><div className="btn-group">
             <button className='btn btn-primary btn-sm'onClick={function() {
                 handleOpenProductModal('edit',item);
-            }}>編輯</button><button className='btn btn-danger btn-sm' onClick={()=>handleOpenDelProductModal(item)}>刪除</button></div>
+            }}>編輯</button><button className='btn btn-danger btn-sm' onClick={()=>handleOpenDelProductModal(item)}>刪除</button></div></td>
             </tr>)
             })}
             </tbody>
             </table>
             <Pagination pageStatus={pageStatus} changePage={changePage}></Pagination>
             </div>
+      </div>
       </div>
       {isLoading && (<><div className='d-flex justify-content-center align-items-center'
             style={{backgroundColor:'rgba(205, 233, 202, 0.4)',position:'fixed',top:0,left:0,right:0,bottom:0,zIndex:3}}><Lottie animationData={teaBearLoading} loop={true} style={{width:'18%',height:'18%'}} /></div></>)}
