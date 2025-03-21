@@ -23,13 +23,14 @@ body {
 }
 
 .cartPage {
+    background-color:rgba(130, 168, 147, 0.5);
     tr {
         th {
         background-color:rgba(99, 145, 120);
         padding:20px 0px;
         }
         td {
-        background-color:rgba(130, 168, 147, 0.5);
+        background-color:rgba(130, 168, 147,0);
         padding-top:20px;
         }
     }

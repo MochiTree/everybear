@@ -78,27 +78,13 @@ function CartPage(){
     
         return (<><div className='container py-5 mt-5 cartPage lxgw-wenkai-mono-tc-regular'>
             <table className="table align-middle text-center">
-        <thead className='text-center'>
-        <tr>
-            <th></th>
-            <th>圖片</th>
-            <th>品名</th>
-            <th>數量</th>
-            <th>單價</th>
-        </tr>
-        </thead>
-
         <tbody>
             {cart.carts?.map(function(item){
                 return (           
-        <tr key={item.id}>
-        <td>
-        <button type="button" className="btn btn-outline-danger btn-sm" onClick={()=>deleteSingleItem(item)}>
-            刪除
-        </button>
-        </td>
+        <tr key={item.id} className='d-flex flex-column flex-lg-row justify-content-between align-items-center mb-4 mb-lg-0'>
         <td><img src={item.product.imageUrl} className='rounded-3 small-img' style={{width:'300px'}}></img></td>
-        <td>{item.product.title}</td>
+        <td className='fs-4 fw-bolder'>{item.product.title}</td>
+        <td>單價：{item.product.price}</td>
         <td>
         <div className="d-flex align-items-center justify-content-center">
             <div className="btn-group" role="group">
@@ -124,18 +110,23 @@ function CartPage(){
 
         </div>
         </td>
-        <td>{item.total}</td>
+        <td className='fs-5'>總計：{item.total}</td>
+        <td>
+        <button type="button" className="btn btn-outline-danger btn-sm" onClick={()=>deleteSingleItem(item)}>
+            移除此產品
+        </button>
+        </td>
     </tr>
             )})}
         </tbody>
-        <tfoot>
-        <tr>
-            <td colSpan="4" className="text-end">
-            總計：
+        <tfoot className='d-flex flex-column'>
+        <tr className='d-flex flex-column'>
+            <td colSpan="4" className="text-center fs-5">
+                總計：{cart.total}
             </td>
-            <td style={{ width: "130px" }}>{cart.total}</td>
+            {/* <td style={{ width: "130px" }}></td> */}
         </tr>
-        <tr>
+        <tr className='d-flex justify-content-between align-items-center'>
             <td colSpan="1"><button className='btn btn-danger' onClick={deleteAllCart} disabled={cart.carts?.length==0}>清空購物車</button></td>
             <td colSpan="5" className='text-end'><Link to={'/checkout'} style={{color:'green'}}>前往結帳</Link></td>
         </tr>
