@@ -1,6 +1,5 @@
 import axios from 'axios';
 import { useState,useEffect} from 'react';
-import OrderModal from '../admin/components/OrderModal';
 import DelOrderModal from '../admin/components/DelOrderModal';
 import Lottie from "lottie-react";
 import teaBearLoading from '../../animations/tea-bear-loading.json';
@@ -50,18 +49,12 @@ function OrderPage(){
 
     const [orderContent, setContent]=useState({});//後台頁面:編輯/新增用
 
-    function handleOpenOrderModal(currentItem) {
-        setContent(currentItem);
-        setIsOpen(true);
-        }
-
 
     function handleOpenDelOrderModal(item) {
             setContent(item)
             setDelIsOpen(true);
           }   
     return (<>
-                <OrderModal orderContent={orderContent} isOpen={isOpen} setIsOpen={setIsOpen} setContent={setContent} getOrders={getOrder}></OrderModal>
                 <DelOrderModal getOrders={getOrder} orderContent={orderContent} isDelOpen={isDelOpen} setDelIsOpen={setDelIsOpen} setContent={setContent}></DelOrderModal>
        <div className="container  lxgw-wenkai-mono-tc-regular">
         <h1 className='fw-bold fs-3 mb-2'>訂單管理</h1>
@@ -72,7 +65,7 @@ function OrderPage(){
             <th scope="col">訂單金額</th>
             <th scope="col">付款狀態</th>
             <th scope="col">連絡電話</th>
-            <th scope="col">訂單詳細</th>
+            <th scope="col">刪除訂單</th>
 
             </tr>
             </thead>
@@ -84,9 +77,7 @@ function OrderPage(){
             <td>{item.is_enabled ? <span className='text-success'>已付款</span>: <span>未付款</span>}</td>
             <td>{item.user.tel}</td>
             <td><div className="btn-group">
-            <button className='btn btn-primary btn-sm'onClick={function() {
-                handleOpenOrderModal(item);
-            }}>編輯</button><button className='btn btn-danger btn-sm' onClick={()=>handleOpenDelOrderModal(item)}>刪除</button></div></td>
+            <button className='btn btn-danger btn-sm' onClick={()=>handleOpenDelOrderModal(item)}>刪除</button></div></td>
             </tr>)
             })}
             </tbody>

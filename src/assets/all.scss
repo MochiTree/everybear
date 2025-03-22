@@ -59,3 +59,11 @@ body {
 .unOpacity{
     opacity: 1;
 }
+
+.seeMore{
+    transition: 0.5s;
+    display: inline-block; 
+    &:hover{
+        transform: translateX(30px);
+    }
+}
