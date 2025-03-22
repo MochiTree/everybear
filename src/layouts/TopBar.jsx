@@ -71,6 +71,27 @@ const paths=[
       </div>
       </ul></nav></div>
      <Outlet></Outlet>
+     <footer className='p-5 fs-5 lxgw-wenkai-mono-tc-regular' style={{backgroundColor:'rgba(120, 151, 134, 0.94)'}}>
+      <div>
+        <ul>
+          <div style={{width:'100%'}} className='d-flex align-items-center justify-content-md-center justify-content-between row row-cols-1 row-cols-md-2'>
+            <li className='col d-flex justify-content-evenly pb-3 pb-md-0'>{paths.map(function(item){
+
+      return <Link className="fs-5"style={{color:'white',padding:'10px',textDecoration:'none'}} aria-current="page" to={item.path}>{item.name}</Link>
+
+    })}
+
+    </li>
+      <li className='d-flex flex-column col align-items-center text-center text-md-start' style={{color:'white'}}>
+        <div><Link aria-current="page" to='/' style={{color:'white',textDecoration:'none'}}><img src={Navbear}  className='object-fit-cover w-25 rounded-circle border'></img>
+        <span className='fs-3 fw-bolder ms-3' style={{letterSpacing: '10px'}}>熊滿屋</span></Link></div>
+        <p className='mt-3 mt-md-0'>—陪您度過每一天。</p>
+      </li>
+            
+    </div>
+        </ul>
+      </div>
+  </footer>
   </>)}
   //記得之後把a換成NavLink
   export default TopBar
